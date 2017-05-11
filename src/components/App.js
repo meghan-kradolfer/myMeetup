@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import './App.css';
+import { Grid, Row, Col } from 'react-bootstrap';
+
 import { addNewEvent, addNewGuest } from '../actions/eventActions';
 import AddEvent from './AddEvent/AddEvent';
 import AddGuest from './AddGuest/AddGuest';
 import EventList from './EventList/EventList';
+
+import './App.css';
 
 const mapStateToProps = (state) => {
     return {
@@ -60,9 +63,19 @@ class App extends Component {
       const { events } =this.props;
     return (
       <div className="App">
-          <h2>myMeetup</h2>
-          <button className="btn" onClick={() => this.openAddEvent()}>Add</button>
-          <EventList events={ events } addGuest={this.openAddGuest} />
+          <div className="App-header text-center">
+             <Grid>
+                 <h2>myMeetup</h2>
+             </Grid>
+          </div>
+          <Grid>
+              <Row>
+                  <button className="btn" onClick={() => this.openAddEvent()}>Add</button>
+              </Row>
+              <Row>
+                  <EventList events={ events } addGuest={this.openAddGuest} />
+              </Row>
+          </Grid>
           <AddEvent open={this.state.addEvent}
                     close={this.closeAddEvent}
                     add={this.handleAddNewEvent}

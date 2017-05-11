@@ -1,6 +1,10 @@
 const events = (state = [], action) => {
     switch (action.type) {
         case 'ADD_EVENT':
+            console.log([
+                ...state,
+                action.values
+            ]);
             return [
                 ...state,
                 action.values
