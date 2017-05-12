@@ -1,19 +1,18 @@
 import * as types from '../constants/ActionTypes';
 
 export const addNewEvent = (values) => {
-  console.log(values);
-    return {
-        type: types.ADD_EVENT,
-        values
-    }
+  return {
+    type: types.ADD_EVENT,
+    values
+  }
 };
 
-export const addNewGuest = (values, id) => {
-    return {
-        type: types.ADD_GUEST,
-        values,
-        id
-    }
+export const addNewGuest = (values, eventId) => {
+  return {
+    type: types.ADD_GUEST,
+    values,
+    eventId
+  }
 };
 
 export const editEvent = (values) => {
@@ -23,10 +22,25 @@ export const editEvent = (values) => {
   }
 };
 
-export const editGuest = (values, id) => {
+export const editGuest = (values, eventId) => {
   return {
     type: types.EDIT_GUEST,
     values,
-    id
+    eventId
+  }
+};
+
+export const removeEvent = (values) => {
+  return {
+    type: types.REMOVE_EVENT,
+    values
+  }
+};
+
+export const removeGuest = (values, eventId) => {
+  return {
+    type: types.REMOVE_GUEST,
+    values,
+    eventId
   }
 };

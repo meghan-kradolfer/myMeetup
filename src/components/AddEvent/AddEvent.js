@@ -1,5 +1,6 @@
 import React from 'react'
-import { Modal, popover, tooltip } from 'react-bootstrap'
+import { Modal, Row, Col } from 'react-bootstrap'
+import Datetime  from 'react-datetime'
 
 class AddEvent extends React.Component {
   constructor(...args) {
@@ -8,46 +9,66 @@ class AddEvent extends React.Component {
       name: '',
       date: '',
       fee: '',
-      time: '',
-      participant: []
+      max_guests: '',
+      participant: [],
+      error: false
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleChange(e) {
     let newState = {};
-    newState[e.target.id] = e.target.value;
+    if(e._d) {
+      newState['date'] = e._d.toISOString();
+    } else {
+      newState[e.target.id] = e.target.value;
+    }
     this.setState(newState)
   }
+  handleSubmit(e) {
+    e.preventDefault();
+    const { name, date, fee, max_guests } = this.state;
+    if (name && date && fee && max_guests) {
+      this.props.add(this.state);
+      this.props.close();
+    } else {
+      this.setState({error: true});
+    }
+  }
   render() {
-    const { open, close, add } = this.props;
+    const { open, close } = this.props;
     return (
       <Modal show={open} onHide={close} >
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <h3 className="text-center mb-1">Add a new event</h3>
+          <hr />
         </Modal.Header>
         <Modal.Body>
-          <form onSubmit={ e => { e.preventDefault(); add(this.state); close(); }}>
+          <form onSubmit={ e => this.handleSubmit(e) }>
             <div className="form-group">
-              <input placeholder="Event Name" type="text" id="name" onChange={ this.handleChange } className="form-control" value={this.state.name} />
+              <label>Select date & time</label>
+              <Datetime locale="au" onChange={this.handleChange} input={false}/>
             </div>
             <div className="form-group">
-              <input placeholder="Event Date" type="date" id="date" onChange={ this.handleChange } className="form-control" value={this.state.date} />
+              <label htmlFor="name">Event Name</label>
+              <input type="text" id="name" onChange={ this.handleChange } className="form-control" value={this.state.name} />
             </div>
-            <div className="form-group">
-              <input placeholder="Event time" type="time" id="time" onChange={ this.handleChange } className="form-control" value={this.state.time} />
-            </div>
-            <div className="form-group">
-              <input placeholder="Event fee" type="text" id="fee" onChange={ this.handleChange } className="form-control" value={this.state.fee} />
-            </div>
-            <button type="submit" className="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-              Add Event
+            <Row>
+              <Col md={6} className="form-group">
+                <label htmlFor="fee">Event Fee</label>
+                <input type="number" id="fee" onChange={ this.handleChange } className="form-control" value={this.state.fee} />
+              </Col>
+              <Col md={6} className="form-group">
+                <label htmlFor="max">Maximum Guests</label>
+                <input type="number" id="max_guests" onChange={ this.handleChange } className="form-control" value={this.state.max_guests} />
+              </Col>
+            </Row>
+            { this.state.error  && <p className="text-danger mb-2 text-center">Please fill in all fields</p> }
+            <button type="submit" className="btn btn-block btn-secondary" >
+              Add guest
             </button>
           </form>
-
         </Modal.Body>
-        <Modal.Footer>
-
-        </Modal.Footer>
       </Modal>
     );
   }

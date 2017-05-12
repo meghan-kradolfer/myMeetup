@@ -11,22 +11,26 @@ function sort(arr) {
 }
 
 const eventHeader = (event) => (
-  <Row className="EventList-Header" >
+  <Row className="EventList-Header">
    <Col md={3}>
      <p className="EventList-label">event name</p>
      <p>{event.name}</p>
    </Col>
-    <Col md={3}>
+    <Col md={2}>
       <p className="EventList-label" >event date</p>
       <p><Moment format="DD MMM, YYYY">{event.date}</Moment></p>
     </Col>
-    <Col md={3}>
+    <Col md={2}>
       <p className="EventList-label" >event time</p>
-      <p>{event.time}</p>
+      <p><Moment format="h:mm A">{event.date}</Moment></p>
     </Col>
-    <Col md={3}>
+    <Col md={2}>
       <p className="EventList-label" >guests attending</p>
-      <p><span>{event.guestCount}</span> / {event.max_participants}</p>
+      <p><span>{event.guestCount}</span> / {event.max_guests}</p>
+    </Col>
+    <Col md={2}>
+      <p className="EventList-label" >finances available</p>
+      <p>${event.finances}</p>
     </Col>
   </Row>
 );
@@ -60,22 +64,30 @@ class EventList extends React.Component {
     return (
       <Accordion className="EventList mt-1">
         { sort(events).map( event => {
-          event.guestCount = event.participant ? event.participant.length + event.participant.reduce(function(total,x){return total + x.guests}, 0) : 0;
-          event.finances = event.participant ? event.participant.reduce(function(total,x){return total + x.paid}, 0) : 0;
-
+          event.guestCount = event.participant ? event.participant.length + event.participant.reduce(function(total,x){return total + Number(x.guests)}, 0) : 0;
+          event.finances = event.participant ? event.participant.reduce(function(total,x){return total + Number(x.paid)}, 0) : 0;
           return (
             <Panel key={event.id} className="EventList-Row" header={eventHeader(event)} eventKey={event.id}>
-              <strong onClick={()=> this.openEditEvent(event.id)}>edit</strong>
-              <Event open = {this.state.editEvent}
-                     close = {this.closeEditEvent}
-                     edit = { handleEditEvent }
+             <Row className="text-center">
+               <span className="btn EventList-btn" onClick={()=> this.openEditEvent(event.id)}><i className="fa fa-pencil"></i></span>
+               <span className="btn EventList-btn" onClick={()=> this.openEditEvent(event.id)}><i className="fa fa-trash"></i></span>
+             </Row>
+              <hr />
+              <Event open={ this.state.editEvent }
+                     close={ this.closeEditEvent }
+                     edit={ handleEditEvent }
                      event={ event } />
               <GuestList participant={event.participant} handleEditGuest={handleEditGuest} event={event}/>
-              <button className="btn btn-primary" onClick={()=> this.openAddGuest(event.id)}>Add</button>
-              <AddGuest open = {this.state.addGuest}
-                        close = {this.closeAddGuest}
-                        add = { handleAddNewGuest }
-                        event = { event }/>
+              { event.guestCount < event.max_guests &&
+              <button className="btn btn-primary EventList-Add" onClick={()=> this.openAddGuest(event.id)}>Add a guest</button>
+              }
+              { event.guestCount >= event.max_guests &&
+              <button className="btn btn-primary EventList-Add" disabled>Guest list full</button>
+              }
+              <AddGuest open={ this.state.addGuest }
+                        close={ this.closeAddGuest }
+                        add={ handleAddNewGuest }
+                        event={ event }/>
             </Panel>
           )
         })}

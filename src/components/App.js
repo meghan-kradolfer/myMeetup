@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Grid, Row, Col } from 'react-bootstrap';
-
+import { Grid, Row } from 'react-bootstrap';
+import Moment from 'react-moment';
 import { addNewEvent, addNewGuest, editEvent, editGuest } from '../actions/eventActions';
 import AddEvent from './AddEvent/AddEvent';
 import EventList from './EventList/EventList';
@@ -58,7 +58,6 @@ class App extends Component {
     this.setState({addEvent: false});
   }
   handleAddNewEvent(value) {
-    console.log(value);
     this.props.addEvent(value);
   }
   handleAddNewGuest(value, eventId) {
@@ -72,31 +71,42 @@ class App extends Component {
   }
   render() {
     const { events, participants } =this.props;
+    const now = new Date().toISOString().slice(0,10);
+    const todaysEvent = events.filter( a => a.date.slice(0,10) === now );
     return (
       <div className="App">
         <div className="App-header text-center">
           <Grid className="mt-1">
-            <p>12 Jun, 2017</p>
-            <h1 className="mt-1">myMeetup</h1>
+            <p><Moment format="DD MMM, YYYY"></Moment></p>
+            <h1 className="mt-1 mb-1">myMeetup</h1>
+            { todaysEvent.length &&
+              <p>Events on today:</p>
+            }
+            { todaysEvent.length && todaysEvent.map(event => (
+              <p key={event.id} >{event.name}: <span><Moment format="h:mm A">{event.date}</Moment></span> </p>
+            ))}
+            { !todaysEvent.length &&
             <p className="mt-1">no events set for today</p>
+            }
+
             <button className="btn btn-primary mt-1" onClick={() => this.openAddEvent()}>Add an event</button>
           </Grid>
         </div>
         <Grid>
           <Row>
             <EventList
-              events={ events }
-              participants = { participants }
+              events={events}
+              participants={participants}
               editEvent={this.openEditEvent}
-              handleAddNewGuest = {this.handleAddNewGuest}
-              handleEditEvent = {this.handleEditEvent}
+              handleAddNewGuest={this.handleAddNewGuest}
+              handleEditEvent={this.handleEditEvent}
               handleEditGuest={this.handleEditGuest}/>
           </Row>
         </Grid>
         <AddEvent open={this.state.addEvent}
                   close={this.closeAddEvent}
                   add={this.handleAddNewEvent}
-                  events={ events }/>
+                  events={events}/>
 
       </div>
     );

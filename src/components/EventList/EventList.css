@@ -1,21 +1,68 @@
-.EventList-Row.panel.panel-default {
-    margin: 10px 0;
-    cursor: pointer;
+.EventList-Row .panel-body {
+  position: relative;
 }
 
-.EventList-Row.panel .panel-heading {
-    background-color: #fefcfa;
+.EventList .EventList-Row.panel.panel-default {
+  margin: 40px 0;
 }
 
-.EventList-Row.panel .panel-heading:hover {
-    background-color: #FFFFFF;
+.EventList .EventList-Row.panel .panel-heading {
+  background-color: #fefcfa;
+  padding:0;
+  cursor: pointer;
 }
 
-.EventList-Header {
-    padding: 20px;
+.EventList .EventList-Row.panel .panel-heading:hover {
+  background-color: #FFFFFF;
 }
 
-.EventList-label {
-    color: #575757;
-    font-size: 12px;
+.EventList .EventList-Header {
+  padding: 20px;
 }
+
+.EventList .EventList-label {
+  color: #575757;
+  font-size: 12px;
+}
+
+.EventList .EventList-btn {
+  margin: 10px;
+  background-color: #2F3546;
+  height: 40px;
+  width: 40px;
+  line-height: 40px;
+  padding:0;
+  color: #ffffff;
+  border-radius: 100%;
+  opacity: 0;
+  -webkit-transition: opacity 1s ease;
+  transition: opacity 1s ease;
+}
+
+.EventList .EventList-Add {
+  position: absolute;
+  width: 200px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  bottom: -30px;
+  opacity: 0;
+  -webkit-transition: opacity 1s ease;
+  transition: opacity 1s ease;
+}
+
+.EventList .collapse.in .EventList-btn,
+.EventList .collapse.in .EventList-Add {
+  opacity: 1;
+}
+
+.EventList .collapsing {
+  position: static;
+}
+
+.EventList .EventList-btn:hover,
+.EventList .EventList-btn:focus {
+  color: #ffffff;
+  background-color: #1d2334;
+}
+

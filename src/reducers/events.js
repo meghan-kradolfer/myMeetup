@@ -1,6 +1,7 @@
 const events = (state = [], action) => {
   switch (action.type) {
     case 'ADD_EVENT':
+      action.values.id = state.length+1;
       return [
         ...state,
         action.values
@@ -28,7 +29,17 @@ const events = (state = [], action) => {
             if(part.id === action.values.id){
               return action.values;
             }
+            return part;
           });
+        }
+        return item;
+      });
+    case 'REMOVE_EVENT':
+      return state.filter(({ id }) => id !== action.values.id);
+    case 'REMOVE_GUEST':
+      return state.map(item => {
+        if(item.id === action.id){
+          return item.participant.filter(({ id }) => id !== action.values.id);
         }
         return item;
       });

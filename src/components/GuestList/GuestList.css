@@ -1,0 +1,11 @@
+.GuestList {
+  padding-bottom: 40px;
+}
+.GuestList .GuestList-List {
+  padding: 10px;
+}
+
+.GuestList .GuestList-label {
+  color: #575757;
+  font-size: 12px;
+}
