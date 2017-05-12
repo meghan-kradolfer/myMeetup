@@ -1,5 +1,39 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #D9D1C7;
+}
+
+h1, h2, h3, h4 {
+  color: #2F3546;
+}
+
+p {
+  color: #333333;
+  margin:0;
+}
+
+p span {
+  color: #666A75;
+}
+
+.btn-primary {
+  border-radius: 40px;
+  background-color: #2F3546;
+  border: 0;
+  padding: 20px;
+  min-width: 200px;
+}
+
+.btn-primary:hover, .btn-primary:focus {
+  background-color: #1d2334;
+}
+
+.mt-1 {
+  margin-top: 30px;
+}
+
+.mb-1 {
+  margin-bottom: 30px;
 }

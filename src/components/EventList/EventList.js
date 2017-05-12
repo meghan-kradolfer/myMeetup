@@ -1,5 +1,6 @@
 import React from 'react';
-import { Accordion, Panel } from 'react-bootstrap';
+import { Accordion, Panel, Row, Col } from 'react-bootstrap';
+import Moment from 'react-moment';
 import GuestList  from '../GuestList/GuestList';
 import AddGuest from '../AddGuest/AddGuest';
 import Event from '../Event/Event';
@@ -9,20 +10,31 @@ function sort(arr) {
   return arr.sort((a, b) => a.date > b.date);
 }
 
-const eventHeader = (event, guestCount) => (
-  <div>
-    name: {event.name}
-    date: {event.date}
-    fee: {event.fee}
-    guests: {guestCount}
-  </div>
+const eventHeader = (event) => (
+  <Row className="EventList-Header" >
+   <Col md={3}>
+     <p className="EventList-label">event name</p>
+     <p>{event.name}</p>
+   </Col>
+    <Col md={3}>
+      <p className="EventList-label" >event date</p>
+      <p><Moment format="DD MMM, YYYY">{event.date}</Moment></p>
+    </Col>
+    <Col md={3}>
+      <p className="EventList-label" >event time</p>
+      <p>{event.time}</p>
+    </Col>
+    <Col md={3}>
+      <p className="EventList-label" >guests attending</p>
+      <p><span>{event.guestCount}</span> / {event.max_participants}</p>
+    </Col>
+  </Row>
 );
 
 class EventList extends React.Component {
   constructor(...args) {
     super(...args);
     this.state = {
-      open: true,
       editEvent: false,
       addGuest: false
     };
@@ -46,27 +58,24 @@ class EventList extends React.Component {
   render() {
     const { events, handleAddNewGuest, handleEditEvent, handleEditGuest } = this.props;
     return (
-      <Accordion className="Event-List">
+      <Accordion className="EventList mt-1">
         { sort(events).map( event => {
-          const guestCount = event.participant ? event.participant.length + event.participant.reduce(function(total,x){return total + x.guests}, 0) : 0;
-          const finances = event.participant ? event.participant.reduce(function(total,x){return total + x.paid}, 0) : 0;
+          event.guestCount = event.participant ? event.participant.length + event.participant.reduce(function(total,x){return total + x.guests}, 0) : 0;
+          event.finances = event.participant ? event.participant.reduce(function(total,x){return total + x.paid}, 0) : 0;
+
           return (
-            <Panel key={event.id} className="Event-Row" header={eventHeader(event, guestCount)} eventKey={event.id}>
-              name: {event.name} {event.id}
-              date: {event.date}
-              fee: {event.fee}
-              guests: {guestCount}
+            <Panel key={event.id} className="EventList-Row" header={eventHeader(event)} eventKey={event.id}>
               <strong onClick={()=> this.openEditEvent(event.id)}>edit</strong>
               <Event open = {this.state.editEvent}
                      close = {this.closeEditEvent}
                      edit = { handleEditEvent }
                      event={ event } />
               <GuestList participant={event.participant} handleEditGuest={handleEditGuest} event={event}/>
+              <button className="btn btn-primary" onClick={()=> this.openAddGuest(event.id)}>Add</button>
               <AddGuest open = {this.state.addGuest}
                         close = {this.closeAddGuest}
                         add = { handleAddNewGuest }
                         event = { event }/>
-              <button className="btn" onClick={()=> this.openAddGuest(event.id)}>Add</button>
             </Panel>
           )
         })}

@@ -75,14 +75,14 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header text-center">
-          <Grid>
-            <h2>myMeetup</h2>
+          <Grid className="mt-1">
+            <p>12 Jun, 2017</p>
+            <h1 className="mt-1">myMeetup</h1>
+            <p className="mt-1">no events set for today</p>
+            <button className="btn btn-primary mt-1" onClick={() => this.openAddEvent()}>Add an event</button>
           </Grid>
         </div>
         <Grid>
-          <Row>
-            <button className="btn" onClick={() => this.openAddEvent()}>Add</button>
-          </Row>
           <Row>
             <EventList
               events={ events }
