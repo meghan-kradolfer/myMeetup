@@ -13,19 +13,19 @@ const initialState = {
             name: 'My first event',
             date: '2017-11-11',
             time: '13:23:44',
-            fee: '20.00',
-            max_participants: '100',
+            fee: 20,
+            max_participants: 100,
             participant: [
                 {
                     id: 1,
                     name: 'Meghan',
-                    paid: '20.00',
+                    paid: 20,
                     guests: 4
                 },
                 {
                     id: 2,
                     name: 'Meghan',
-                    paid: '20.00',
+                    paid: 23,
                     guests: 0
                 }
             ]
@@ -36,12 +36,12 @@ const initialState = {
             date: '2017-12-11',
             time: '20:23:44',
             fee: 0,
-            max_participants: '20',
+            max_participants: 20,
             participant: [
                 {
                     id: 1,
                     name: 'Meghan',
-                    paid: '20.00',
+                    paid: 20,
                     guests: 0
                 }
             ]

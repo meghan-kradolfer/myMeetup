@@ -2,88 +2,102 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Grid, Row, Col } from 'react-bootstrap';
 
-import { addNewEvent, addNewGuest } from '../actions/eventActions';
+import { addNewEvent, addNewGuest, editEvent, editGuest } from '../actions/eventActions';
 import AddEvent from './AddEvent/AddEvent';
-import AddGuest from './AddGuest/AddGuest';
 import EventList from './EventList/EventList';
 
 import './App.css';
 
 const mapStateToProps = (state) => {
-    return {
-        events: state.events
-    };
+  return {
+    events: state.events
+  };
 };
 
 const mapDispatchToProps = (dispatch, props) => {
-    return {
-        addEvent: (value) => {
-            dispatch(addNewEvent(value));
-        },
-        addGuest: (value, id) => {
-            dispatch(addNewGuest(value, id));
-        }
+  return {
+    addEvent: (value) => {
+      dispatch(addNewEvent(value));
+    },
+    addGuest: (value, eventId) => {
+      dispatch(addNewGuest(value, eventId));
+    },
+    editEvent: (value) => {
+      dispatch(editEvent(value));
+    },
+    editGuest: (value, eventId) => {
+      dispatch(editGuest(value, eventId));
     }
+  }
 };
 
 class App extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            addEvent: false,
-            addGuest: false,
-            eventId: false
-        };
-        this.openAddEvent = this.openAddEvent.bind(this);
-        this.openAddGuest = this.openAddGuest.bind(this);
-        this.closeAddEvent = this.closeAddEvent.bind(this);
-        this.closeAddGuest = this.closeAddGuest.bind(this);
-        this.handleAddNewEvent = this.handleAddNewEvent.bind(this);
-        this.handleAddNewGuest = this.handleAddNewGuest.bind(this);
-    }
-    openAddGuest(id) {
-        this.setState({addGuest: true, eventId: id});
-    }
-    openAddEvent() {
-        this.setState({addEvent: true});
-    }
-    closeAddGuest() {
-        this.setState({addGuest: false});
-    }
-    closeAddEvent() {
-        this.setState({addEvent: false});
-    }
-    handleAddNewEvent(value) {
-        this.props.addEvent(value);
-    }
-    handleAddNewGuest(value) {
-        this.props.addGuest(value, this.state.eventId);
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      addEvent: false,
+      editEvent: false,
+      addGuest: false
+    };
+    this.openAddEvent = this.openAddEvent.bind(this);
+    this.closeAddEvent = this.closeAddEvent.bind(this);
+    this.closeAddGuest = this.closeAddGuest.bind(this);
+    this.handleAddNewEvent = this.handleAddNewEvent.bind(this);
+    this.handleAddNewGuest = this.handleAddNewGuest.bind(this);
+    this.handleEditEvent = this.handleEditEvent.bind(this);
+    this.handleEditGuest = this.handleEditGuest.bind(this);
+  }
+
+  openAddEvent() {
+    this.setState({addEvent: true});
+  }
+  closeAddGuest() {
+    this.setState({addGuest: false});
+  }
+  closeAddEvent() {
+    this.setState({addEvent: false});
+  }
+  handleAddNewEvent(value) {
+    console.log(value);
+    this.props.addEvent(value);
+  }
+  handleAddNewGuest(value, eventId) {
+    this.props.addGuest(value, eventId);
+  }
+  handleEditEvent(value) {
+    this.props.editEvent(value);
+  }
+  handleEditGuest(value, eventId) {
+    this.props.editGuest(value, eventId);
+  }
   render() {
-      const { events } =this.props;
+    const { events, participants } =this.props;
     return (
       <div className="App">
-          <div className="App-header text-center">
-             <Grid>
-                 <h2>myMeetup</h2>
-             </Grid>
-          </div>
+        <div className="App-header text-center">
           <Grid>
-              <Row>
-                  <button className="btn" onClick={() => this.openAddEvent()}>Add</button>
-              </Row>
-              <Row>
-                  <EventList events={ events } addGuest={this.openAddGuest} />
-              </Row>
+            <h2>myMeetup</h2>
           </Grid>
-          <AddEvent open={this.state.addEvent}
-                    close={this.closeAddEvent}
-                    add={this.handleAddNewEvent}
-                    events={ events }/>
-          <AddGuest open={this.state.addGuest}
-                    close={this.closeAddGuest}
-                    add={this.handleAddNewGuest}
-                    events={ events }/>
+        </div>
+        <Grid>
+          <Row>
+            <button className="btn" onClick={() => this.openAddEvent()}>Add</button>
+          </Row>
+          <Row>
+            <EventList
+              events={ events }
+              participants = { participants }
+              editEvent={this.openEditEvent}
+              handleAddNewGuest = {this.handleAddNewGuest}
+              handleEditEvent = {this.handleEditEvent}
+              handleEditGuest={this.handleEditGuest}/>
+          </Row>
+        </Grid>
+        <AddEvent open={this.state.addEvent}
+                  close={this.closeAddEvent}
+                  add={this.handleAddNewEvent}
+                  events={ events }/>
+
       </div>
     );
   }
