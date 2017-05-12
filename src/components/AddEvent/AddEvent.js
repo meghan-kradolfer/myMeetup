@@ -1,6 +1,6 @@
-import React from 'react'
-import { Modal, Row, Col } from 'react-bootstrap'
-import Datetime  from 'react-datetime'
+import React from 'react';
+import { Modal, Row, Col } from 'react-bootstrap';
+import Datetime  from 'react-datetime';
 
 class AddEvent extends React.Component {
   constructor(...args) {
@@ -18,19 +18,31 @@ class AddEvent extends React.Component {
   }
   handleChange(e) {
     let newState = {};
+
     if(e._d) {
       newState['date'] = e._d.toISOString();
     } else {
       newState[e.target.id] = e.target.value;
     }
+
     this.setState(newState)
   }
   handleSubmit(e) {
     e.preventDefault();
     const { name, date, fee, max_guests } = this.state;
+    const { add, close } = this.props;
+
     if (name && date && fee && max_guests) {
-      this.props.add(this.state);
-      this.props.close();
+      add(this.state);
+      this.setState({
+        name: '',
+        date: '',
+        fee: '',
+        max_guests: '',
+        participant: [],
+        error: false
+      });
+      close();
     } else {
       this.setState({error: true});
     }

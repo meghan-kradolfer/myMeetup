@@ -8,7 +8,7 @@ const events = (state = [], action) => {
       ];
     case 'ADD_GUEST':
       return state.map(item => {
-        if(item.id === action.id){
+        if(item.id === action.eventId){
           action.values.id = item.participant.length+1;
           item.participant.push(action.values);
           return item;
@@ -24,13 +24,15 @@ const events = (state = [], action) => {
       });
     case 'EDIT_GUEST':
       return state.map(item => {
-        if(item.id === action.id){
-          item.participant.map(part=> {
+        if(item.id === action.values.eventId){
+          item.participant = item.participant.map(part=> {
             if(part.id === action.values.id){
               return action.values;
             }
             return part;
           });
+          console.log(item);
+          return item;
         }
         return item;
       });
@@ -38,8 +40,8 @@ const events = (state = [], action) => {
       return state.filter(({ id }) => id !== action.values.id);
     case 'REMOVE_GUEST':
       return state.map(item => {
-        if(item.id === action.id){
-          return item.participant.filter(({ id }) => id !== action.values.id);
+        if(item.id === action.values.eventId) {
+          item.participant = item.participant.filter(({ id }) => id !== action.values.id);
         }
         return item;
       });

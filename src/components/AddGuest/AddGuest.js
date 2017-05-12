@@ -31,6 +31,12 @@ class AddGuest extends React.Component {
 
     if (name && guests) {
       add(this.state, event.id);
+      this.setState({
+        name: '',
+        guests: '',
+        paid: '',
+        error: false
+      });
       close();
     } else {
       this.setState({error: true});

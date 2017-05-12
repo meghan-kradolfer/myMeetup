@@ -25,18 +25,24 @@
   font-size: 12px;
 }
 
-.EventList .EventList-btn {
+.EventList .EventList-btn,
+.EventList .EventList-delete {
   margin: 10px;
-  background-color: #2F3546;
-  height: 40px;
-  width: 40px;
-  line-height: 40px;
-  padding:0;
   color: #ffffff;
-  border-radius: 100%;
-  opacity: 0;
-  -webkit-transition: opacity 1s ease;
-  transition: opacity 1s ease;
+  padding: 10px 20px;
+}
+
+.EventList .EventList-btn {
+  background-color: #2F3546;
+}
+
+.EventList .EventList-delete {
+  background-color: #E24D55;
+}
+.EventList .EventList-delete:hover,
+.EventList .EventList-delete:focus {
+  background-color: #bf4951;
+  color: #ffffff;
 }
 
 .EventList .EventList-Add {
@@ -51,13 +57,8 @@
   transition: opacity 1s ease;
 }
 
-.EventList .collapse.in .EventList-btn,
 .EventList .collapse.in .EventList-Add {
   opacity: 1;
-}
-
-.EventList .collapsing {
-  position: static;
 }
 
 .EventList .EventList-btn:hover,

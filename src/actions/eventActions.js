@@ -22,11 +22,10 @@ export const editEvent = (values) => {
   }
 };
 
-export const editGuest = (values, eventId) => {
+export const editGuest = (values) => {
   return {
     type: types.EDIT_GUEST,
-    values,
-    eventId
+    values
   }
 };
 
@@ -37,10 +36,9 @@ export const removeEvent = (values) => {
   }
 };
 
-export const removeGuest = (values, eventId) => {
+export const removeGuest = (values) => {
   return {
     type: types.REMOVE_GUEST,
-    values,
-    eventId
+    values
   }
 };

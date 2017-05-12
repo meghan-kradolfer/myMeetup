@@ -1,43 +1,61 @@
-import React from 'react'
-import { Modal } from 'react-bootstrap'
+import React from 'react';
+import { Modal, Row, Col } from 'react-bootstrap';
+import Datetime  from 'react-datetime';
 
 class Event extends React.Component {
   constructor(...args) {
     super(...args);
     this.state = {
-      event: this.props.event
+      ...this.props.event,
+      error: false
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleChange(e) {
-    let newState = this.state.event;
-    newState[e.target.id] = e.target.value;
+    let newState = this.state;
+    if(e._d) {
+      newState['date'] = e._d.toISOString();
+    } else {
+      newState[e.target.id] = e.target.value;
+    }
     this.setState(newState)
   }
+  handleSubmit(e) {
+    e.preventDefault();
+    this.props.edit(this.state);
+    this.props.close();
+  }
     render() {
-    const { open, close, edit, event } = this.props;
+    const { open, close,  event } = this.props;
       return (
         <Modal show={open === event.id} onHide={close} >
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <h3 className="text-center mb-1">Edit <span>{event.name}</span></h3>
+            <hr />
           </Modal.Header>
           <Modal.Body>
-            <form onSubmit={ e => { e.preventDefault(); edit(event); close();}}>
+            <form onSubmit={ e => { this.handleSubmit(e) }}>
               <div className="form-group">
-                <input placeholder="Event Name" type="text" id="name" onChange={ this.handleChange } className="form-control" value={this.state.event.name} />
+                <label>Select date & time</label>
+                <Datetime locale="au" onChange={this.handleChange} input={false}  />
               </div>
               <div className="form-group">
-                <input placeholder="Event Date" type="date" id="date" onChange={ this.handleChange } className="form-control" value={this.state.event.date} />
+                <label htmlFor="name">Event Name</label>
+                <input type="text" id="name" onChange={ this.handleChange } className="form-control" value={this.state.name} />
               </div>
-              <div className="form-group">
-                <input placeholder="Event time" type="time" id="time" onChange={ this.handleChange } className="form-control" value={this.state.event.time} />
-              </div>
-              <div className="form-group">
-                <input placeholder="Event fee" type="number" id="fee" onChange={ this.handleChange } className="form-control" value={this.state.event.fee} />
-              </div>
-
-              <button type="submit" className="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                Edit Event
+              <Row>
+                <Col md={6} className="form-group">
+                  <label htmlFor="fee">Event Fee</label>
+                  <input type="number" id="fee" onChange={ this.handleChange } className="form-control" value={this.state.fee} />
+                </Col>
+                <Col md={6} className="form-group">
+                  <label htmlFor="max">Maximum Guests</label>
+                  <input type="number" id="max_guests" onChange={ this.handleChange } className="form-control" value={this.state.max_guests} />
+                </Col>
+              </Row>
+              <button type="submit" className="btn btn-block btn-secondary" >
+                Update Event
               </button>
             </form>
 

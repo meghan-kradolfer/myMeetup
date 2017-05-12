@@ -58,6 +58,10 @@ hr {
   color: #ffffff;
 }
 
+.btn-default {
+  background-color: #cecece;
+}
+
 .modal-header {
   border: none;
 }
@@ -143,5 +147,9 @@ hr {
   display: inline-block;
   padding: 10px;
   vertical-align: middle;
+}
+
+.rdtToday {
+  border-bottom: 2px solid #2F3546;
 }
 

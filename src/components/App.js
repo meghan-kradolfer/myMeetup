@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Grid, Row } from 'react-bootstrap';
 import Moment from 'react-moment';
-import { addNewEvent, addNewGuest, editEvent, editGuest } from '../actions/eventActions';
+import { addNewEvent, addNewGuest, editEvent, editGuest, removeEvent, removeGuest } from '../actions/eventActions';
 import AddEvent from './AddEvent/AddEvent';
 import EventList from './EventList/EventList';
 
@@ -27,6 +27,12 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     editGuest: (value, eventId) => {
       dispatch(editGuest(value, eventId));
+    },
+    removeEvent: (value) => {
+      dispatch(removeEvent(value));
+    },
+    removeGuest: (value) => {
+      dispatch(removeGuest(value));
     }
   }
 };
@@ -46,8 +52,9 @@ class App extends Component {
     this.handleAddNewGuest = this.handleAddNewGuest.bind(this);
     this.handleEditEvent = this.handleEditEvent.bind(this);
     this.handleEditGuest = this.handleEditGuest.bind(this);
+    this.handleDeleteEvent = this.handleDeleteEvent.bind(this);
+    this.handleDeleteGuest = this.handleDeleteGuest.bind(this);
   }
-
   openAddEvent() {
     this.setState({addEvent: true});
   }
@@ -66,8 +73,14 @@ class App extends Component {
   handleEditEvent(value) {
     this.props.editEvent(value);
   }
-  handleEditGuest(value, eventId) {
-    this.props.editGuest(value, eventId);
+  handleEditGuest(value) {
+    this.props.editGuest(value);
+  }
+  handleDeleteEvent(value) {
+    this.props.removeEvent(value);
+  }
+  handleDeleteGuest(value) {
+    this.props.removeGuest(value);
   }
   render() {
     const { events, participants } =this.props;
@@ -100,7 +113,9 @@ class App extends Component {
               editEvent={this.openEditEvent}
               handleAddNewGuest={this.handleAddNewGuest}
               handleEditEvent={this.handleEditEvent}
-              handleEditGuest={this.handleEditGuest}/>
+              handleEditGuest={this.handleEditGuest}
+              handleDeleteEvent={this.handleDeleteEvent}
+              handleDeleteGuest={this.handleDeleteGuest} />
           </Row>
         </Grid>
         <AddEvent open={this.state.addEvent}
