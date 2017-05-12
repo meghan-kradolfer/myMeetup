@@ -8,6 +8,7 @@ class AddEvent extends React.Component {
     this.state = {
       name: '',
       date: '',
+      address: '',
       fee: '',
       max_guests: '',
       participant: [],
@@ -64,6 +65,10 @@ class AddEvent extends React.Component {
             <div className="form-group">
               <label htmlFor="name">Event Name</label>
               <input type="text" id="name" onChange={ this.handleChange } className="form-control" value={this.state.name} />
+            </div>
+            <div className="form-group">
+              <label htmlFor="name">Event Address</label>
+              <input type="text" id="name" onChange={ this.handleChange } className="form-control" value={this.state.address} />
             </div>
             <Row>
               <Col md={6} className="form-group">

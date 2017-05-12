@@ -44,6 +44,10 @@ class Event extends React.Component {
                 <label htmlFor="name">Event Name</label>
                 <input type="text" id="name" onChange={ this.handleChange } className="form-control" value={this.state.name} />
               </div>
+              <div className="form-group">
+                <label htmlFor="name">Event Address</label>
+                <input type="text" id="name" onChange={ this.handleChange } className="form-control" value={this.state.address} />
+              </div>
               <Row>
                 <Col md={6} className="form-group">
                   <label htmlFor="fee">Event Fee</label>

@@ -12,30 +12,6 @@ function sort(arr) {
   return arr.sort((a, b) => a.date > b.date);
 }
 
-const eventHeader = (event) => (
-  <Row className="EventList-Header">
-   <Col md={3}>
-     <p className="EventList-label">event name</p>
-     <p>{event.name}</p>
-   </Col>
-    <Col md={2}>
-      <p className="EventList-label" >event date</p>
-      <p><Moment format="DD MMM, YYYY">{event.date}</Moment></p>
-    </Col>
-    <Col md={2}>
-      <p className="EventList-label" >event time</p>
-      <p><Moment format="h:mm A">{event.date}</Moment></p>
-    </Col>
-    <Col md={2}>
-      <p className="EventList-label" >guests attending</p>
-      <p><span>{event.guestCount}</span> / {event.max_guests}</p>
-    </Col>
-    <Col md={2}>
-      <p className="EventList-label" >finances available</p>
-      <p>${event.finances}</p>
-    </Col>
-  </Row>
-);
 
 class EventList extends React.Component {
   constructor(...args) {
@@ -43,7 +19,8 @@ class EventList extends React.Component {
     this.state = {
       editEvent: false,
       deleteEvent: false,
-      addGuest: false
+      addGuest: false,
+      open: false
     };
     this.openAddGuest = this.openAddGuest.bind(this);
     this.openEditEvent = this.openEditEvent.bind(this);
@@ -73,49 +50,69 @@ class EventList extends React.Component {
   render() {
     const { events, handleAddNewGuest, handleEditEvent, handleEditGuest, handleDeleteEvent, handleDeleteGuest } = this.props;
     return (
-      <Accordion className="EventList mt-1">
-        { sort(events).map( event => {
-          event.guestCount = event.participant ? event.participant.length + event.participant.reduce(function(total,x){return total + Number(x.guests)}, 0) : 0;
-          event.finances = event.participant ? event.participant.reduce(function(total,x){return total + Number(x.paid)}, 0) : 0;
-          return (
-            <Panel key={event.id} className="EventList-Row" header={eventHeader(event)} eventKey={event.id}>
-             <Row>
-               <Col md={2} mdOffset={8}>
-                 <span className="btn btn-block EventList-btn" onClick={()=> this.openEditEvent(event.id)}><i className="fa fa-pencil"></i> Edit event</span>
+      <div className="EventList">
+       <div className="EventList-Contain">
+         { sort(events).map( event => {
+           event.guestCount = event.participant ? event.participant.length + event.participant.reduce(function(total,x){return total + Number(x.guests)}, 0) : 0;
+           event.finances = event.participant ? event.participant.reduce(function(total,x){return total + Number(x.paid)}, 0) : 0;
+           return (
+             <div key={event.id} className="EventList-Row" >
+              <Row>
+               <Col xs={12}>
+                 <h4 className="EventList-Title">{event.name}</h4>
+                 <h2 className="EventList-Date"><Moment format="DD MMM YYYY">{event.date}</Moment></h2>
+                 <p className="EventList-Details"><i className="fa fa-clock-o"></i> <Moment format="h:mm A">{event.date}</Moment></p>
+                 <p className="EventList-Details"><i className="fa fa-map-marker"></i> {event.address}</p>
+                 <p className="EventList-Details"><i className="fa fa-usd"></i> {event.finances} <span>( total finances )</span></p>
+                 <p className="EventList-Guests" onClick={()=> this.setState({ open: this.state.open === event.id ? false : event.id })}>
+                   Guests Attending <span>{event.guestCount}</span> / {event.max_guests}
+                 </p>
+                 <Panel className="EventList-Panel" collapsible expanded={this.state.open === event.id}>
+                   <GuestList participant={event.participant}
+                              handleEditGuest={handleEditGuest}
+                              handleDeleteGuest={handleDeleteGuest}
+                              event={event} />
+                   <Row className="text-center">
+                     { event.guestCount < event.max_guests &&
+                     <button className="btn btn-primary EventList-Add" onClick={()=> this.openAddGuest(event.id)}>Add a guest</button>
+                     }
+                     { event.guestCount >= event.max_guests &&
+                     <button className="btn btn-primary EventList-Add" disabled>Guest list full</button>
+                     }
+                   </Row>
+                 </Panel>
                </Col>
-               <Col  md={2} >
-                 <span className="btn btn-block EventList-delete" onClick={()=> this.openDeleteEvent(event.id)}><i className="fa fa-trash"></i> Delete event</span>
-                 <DeleteConfirm open={ this.state.deleteEvent }
-                                close={ this.closeDeleteEvent }
-                                remove={ handleDeleteEvent }
-                                component={ event } />
-               </Col>
-             </Row>
-              <Event open={ this.state.editEvent }
-                     close={ this.closeEditEvent }
-                     edit={ handleEditEvent }
-                     event={ event } />
+              </Row>
+               <Row>
+                 <Col md={3} mdOffset={6}>
+                   <span className="btn btn-block btn-secondary" onClick={()=> this.openEditEvent(event.id)}><i className="fa fa-pencil"></i> Edit event</span>
+                 </Col>
+                 <Col  md={3} >
+                   <span className="btn btn-block btn-default" onClick={()=> this.openDeleteEvent(event.id)}><i className="fa fa-trash"></i> Delete event</span>
+                   <DeleteConfirm open={ this.state.deleteEvent }
+                                  close={ this.closeDeleteEvent }
+                                  remove={ handleDeleteEvent }
+                                  component={ event } />
+                 </Col>
+               </Row>
+               <Event open={ this.state.editEvent }
+                      close={ this.closeEditEvent }
+                      edit={ handleEditEvent }
+                      event={ event } />
 
-              <GuestList participant={event.participant}
-                         handleEditGuest={handleEditGuest}
-                         handleDeleteGuest={handleDeleteGuest}
-                         event={event} />
 
-              { event.guestCount < event.max_guests &&
-              <button className="btn btn-primary EventList-Add" onClick={()=> this.openAddGuest(event.id)}>Add a guest</button>
-              }
-              { event.guestCount >= event.max_guests &&
-              <button className="btn btn-primary EventList-Add" disabled>Guest list full</button>
-              }
 
-              <AddGuest open={ this.state.addGuest }
-                        close={ this.closeAddGuest }
-                        add={ handleAddNewGuest }
-                        event={ event }/>
-            </Panel>
-          )
-        })}
-      </Accordion>
+
+
+               <AddGuest open={ this.state.addGuest }
+                         close={ this.closeAddGuest }
+                         add={ handleAddNewGuest }
+                         event={ event }/>
+             </div>
+           )
+         })}
+       </div>
+      </div>
     );
   }
 }

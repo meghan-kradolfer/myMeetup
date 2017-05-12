@@ -32,7 +32,6 @@ class GuestList extends React.Component {
     const { participant, handleEditGuest, event, handleDeleteGuest } = this.props;
     return (
       <div className="GuestList">
-        <h4>Guests Attending...</h4>
         { participant.map( part => {
           part.eventId = event.id;
           return (

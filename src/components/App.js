@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Grid, Row } from 'react-bootstrap';
+import { Grid, Row, Col } from 'react-bootstrap';
 import Moment from 'react-moment';
 import { addNewEvent, addNewGuest, editEvent, editGuest, removeEvent, removeGuest } from '../actions/eventActions';
 import AddEvent from './AddEvent/AddEvent';
@@ -88,35 +88,43 @@ class App extends Component {
     const todaysEvent = events.filter( a => a.date.slice(0,10) === now );
     return (
       <div className="App">
-        <div className="App-header text-center">
+        <div className="App-header">
           <Grid className="mt-1">
-            <p><Moment format="DD MMM, YYYY"></Moment></p>
-            <h1 className="mt-1 mb-1">myMeetup</h1>
+            <Row>
+              <Col md={9}>
+                <h1 className="mt-1">myMeetup</h1>
+                <p>Your personal meetup planner</p>
+                <h5><Moment format="DD MMM, YYYY"></Moment></h5>
+              </Col>
+              <Col md={3}>
+                <button className="btn btn-primary mt-1" onClick={() => this.openAddEvent()}>Add an event</button>
+              </Col>
+            </Row>
+
             { todaysEvent.length &&
-              <p>Events on today:</p>
+              <p>You have <span>{todaysEvent.length} events</span> on today</p>
             }
-            { todaysEvent.length && todaysEvent.map(event => (
-              <p key={event.id} >{event.name}: <span><Moment format="h:mm A">{event.date}</Moment></span> </p>
-            ))}
+
             { !todaysEvent.length &&
             <p className="mt-1">no events set for today</p>
             }
+            <hr className="thick"/>
+            <Row>
+              <EventList
+                events={events}
+                participants={participants}
+                editEvent={this.openEditEvent}
+                handleAddNewGuest={this.handleAddNewGuest}
+                handleEditEvent={this.handleEditEvent}
+                handleEditGuest={this.handleEditGuest}
+                handleDeleteEvent={this.handleDeleteEvent}
+                handleDeleteGuest={this.handleDeleteGuest} />
+            </Row>
 
-            <button className="btn btn-primary mt-1" onClick={() => this.openAddEvent()}>Add an event</button>
           </Grid>
         </div>
         <Grid>
-          <Row>
-            <EventList
-              events={events}
-              participants={participants}
-              editEvent={this.openEditEvent}
-              handleAddNewGuest={this.handleAddNewGuest}
-              handleEditEvent={this.handleEditEvent}
-              handleEditGuest={this.handleEditGuest}
-              handleDeleteEvent={this.handleDeleteEvent}
-              handleDeleteGuest={this.handleDeleteGuest} />
-          </Row>
+
         </Grid>
         <AddEvent open={this.state.addEvent}
                   close={this.closeAddEvent}

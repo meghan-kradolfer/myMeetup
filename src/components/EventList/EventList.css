@@ -1,69 +1,126 @@
-.EventList-Row .panel-body {
+.EventList {
+  padding-left: 50px;
+}
+.EventList-Contain {
+  border-left: 1px solid #E6E7E8;
+  padding: 30px;
   position: relative;
 }
 
-.EventList .EventList-Row.panel.panel-default {
-  margin: 40px 0;
+.EventList-Title:before {
+  content: '';
+  background-color: #2F313C;
+  border-radius: 100%;
+  position: absolute;
+  left:-7px;
+  height: 15px;
+  width: 15px;
 }
 
-.EventList .EventList-Row.panel .panel-heading {
-  background-color: #fefcfa;
-  padding:0;
+.EventList-Date {
+  color: #E6E7E8;
+  margin:0;
+}
+
+.EventList-Details {
+  margin: 10px 0;
+}
+
+.EventList-Details .fa {
+  color: #E6E7E8;
+  font-size: 20px;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.EventList-Guests {
+  padding-bottom: 10px;
+  font-size: 15px;
   cursor: pointer;
 }
 
-.EventList .EventList-Row.panel .panel-heading:hover {
-  background-color: #FFFFFF;
+.EventList-Guests span {
+  padding-left: 20px;
 }
 
-.EventList .EventList-Header {
-  padding: 20px;
+.EventList-Panel.panel {
+  border: 0;
+  box-shadow: 0;
+  border-radius: 0;
+  border-bottom: 5px solid #2F313C;
 }
+
+.EventList-Add {
+  margin:0 0 0 auto;
+  display: block;
+}
+
+/*.EventList-Row .panel-body {*/
+  /*position: relative;*/
+/*}*/
+
+/*.EventList .EventList-Row.panel.panel-default {*/
+  /*margin: 40px 0;*/
+/*}*/
+
+/*.EventList .EventList-Row.panel .panel-heading {*/
+  /*background-color: #fefcfa;*/
+  /*padding:0;*/
+  /*cursor: pointer;*/
+/*}*/
+
+/*.EventList .EventList-Row.panel .panel-heading:hover {*/
+  /*background-color: #FFFFFF;*/
+/*}*/
+
+/*.EventList .EventList-Header {*/
+  /*padding: 20px;*/
+/*}*/
 
 .EventList .EventList-label {
   color: #575757;
   font-size: 12px;
 }
 
-.EventList .EventList-btn,
-.EventList .EventList-delete {
-  margin: 10px;
-  color: #ffffff;
-  padding: 10px 20px;
-}
+/*.EventList .EventList-btn,*/
+/*.EventList .EventList-delete {*/
+  /*margin: 10px;*/
+  /*color: #ffffff;*/
+  /*padding: 10px 20px;*/
+/*}*/
 
-.EventList .EventList-btn {
-  background-color: #2F3546;
-}
+/*.EventList .EventList-btn {*/
+  /*background-color: #2F3546;*/
+/*}*/
 
-.EventList .EventList-delete {
-  background-color: #E24D55;
-}
-.EventList .EventList-delete:hover,
-.EventList .EventList-delete:focus {
-  background-color: #bf4951;
-  color: #ffffff;
-}
+/*.EventList .EventList-delete {*/
+  /*background-color: #E24D55;*/
+/*}*/
+/*.EventList .EventList-delete:hover,*/
+/*.EventList .EventList-delete:focus {*/
+  /*background-color: #bf4951;*/
+  /*color: #ffffff;*/
+/*}*/
 
-.EventList .EventList-Add {
-  position: absolute;
-  width: 200px;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  bottom: -30px;
-  opacity: 0;
-  -webkit-transition: opacity 1s ease;
-  transition: opacity 1s ease;
-}
+/*.EventList .EventList-Add {*/
+  /*position: absolute;*/
+  /*width: 200px;*/
+  /*left: 0;*/
+  /*right: 0;*/
+  /*margin: 0 auto;*/
+  /*bottom: -30px;*/
+  /*opacity: 0;*/
+  /*-webkit-transition: opacity 1s ease;*/
+  /*transition: opacity 1s ease;*/
+/*}*/
 
-.EventList .collapse.in .EventList-Add {
-  opacity: 1;
-}
+/*.EventList .collapse.in .EventList-Add {*/
+  /*opacity: 1;*/
+/*}*/
 
-.EventList .EventList-btn:hover,
-.EventList .EventList-btn:focus {
-  color: #ffffff;
-  background-color: #1d2334;
-}
+/*.EventList .EventList-btn:hover,*/
+/*.EventList .EventList-btn:focus {*/
+  /*color: #ffffff;*/
+  /*background-color: #1d2334;*/
+/*}*/
 
