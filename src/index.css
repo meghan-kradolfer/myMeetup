@@ -3,6 +3,7 @@ body {
   padding: 0;
   font-family: 'Montserrat', sans-serif;
   background-color: #D9D1C7;
+  overflow-x: hidden;
 }
 
 h1, h2, h3, h4 {
@@ -15,6 +16,7 @@ p {
 }
 
 p span,
+p em,
 h3 span {
   color: #666A75;
 }
@@ -24,19 +26,19 @@ hr {
   margin: 0 auto;
 }
 
-hr.thick {
-  width: 80px;
-  height: 5px;
-  background-color: #2F313C;
-  border: 0;
-  margin: 20px auto 0 0;
+input.form-control:focus {
+  border-color: #333333;
+  box-shadow: none;
 }
 
 .container {
   width: 900px;
-  margin:0 auto;
+  margin:10px auto;
   background-color: #FFFFFF;
   border-left: 10px solid #2F313C;
+  -moz-box-shadow: rgba(0,0,0,0.1) 0 1px 6px, rgba(0,0,0,0.1) 0 1px 4px;
+  -webkit-box-shadow: rgba(0,0,0,0.1) 0 1px 6px, rgba(0,0,0,0.1) 0 1px 4px;
+  box-shadow: rgba(0,0,0,0.1) 0 1px 6px, rgba(0,0,0,0.1) 0 1px 4px;
 }
 
 .btn {
@@ -54,7 +56,7 @@ hr.thick {
 .btn-primary {
   border-radius: 40px;
   background-color: #2F3546;
-  padding: 20px;
+  padding: 10px;
   min-width: 200px;
 }
 
@@ -165,5 +167,17 @@ hr.thick {
 
 .rdtToday {
   border-bottom: 2px solid #2F3546;
+}
+
+::-webkit-scrollbar {width: 7px;  }
+::-webkit-scrollbar-track {background-color: #2F3546;}
+::-webkit-scrollbar-thumb {background-color:#ffffff; border-left: 2px solid #2F3546;}
+::-moz-selection { background: #2F3546; color:#ffffff;}
+::selection { background: #2F3546; color:#ffffff; }
+
+@media only screen and (max-width: 800px) {
+  .container {
+    width: 95%;
+  }
 }
 

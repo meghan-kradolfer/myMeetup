@@ -16,7 +16,7 @@ class Guest extends React.Component {
     newState[e.target.id] = e.target.value;
 
     if(e.target.id === 'guests') {
-      newState.paid = (e.target.value++) * this.props.event.fee;
+      newState.paid = (Number(e.target.value)+1) * this.props.event.fee;
     }
 
     this.setState(newState)

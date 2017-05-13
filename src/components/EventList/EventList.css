@@ -1,5 +1,5 @@
 .EventList {
-  padding-left: 50px;
+  padding-left: 40px;
 }
 .EventList-Contain {
   border-left: 1px solid #E6E7E8;
@@ -12,7 +12,7 @@
   background-color: #2F313C;
   border-radius: 100%;
   position: absolute;
-  left:-7px;
+  left: -22px;
   height: 15px;
   width: 15px;
 }
@@ -39,15 +39,12 @@
   cursor: pointer;
 }
 
-.EventList-Guests span {
-  padding-left: 20px;
-}
 
 .EventList-Panel.panel {
   border: 0;
   box-shadow: 0;
   border-radius: 0;
-  border-bottom: 5px solid #2F313C;
+  border-bottom: 5px solid #E6E7E8;
 }
 
 .EventList-Add {
@@ -55,72 +52,21 @@
   display: block;
 }
 
-/*.EventList-Row .panel-body {*/
-  /*position: relative;*/
-/*}*/
-
-/*.EventList .EventList-Row.panel.panel-default {*/
-  /*margin: 40px 0;*/
-/*}*/
-
-/*.EventList .EventList-Row.panel .panel-heading {*/
-  /*background-color: #fefcfa;*/
-  /*padding:0;*/
-  /*cursor: pointer;*/
-/*}*/
-
-/*.EventList .EventList-Row.panel .panel-heading:hover {*/
-  /*background-color: #FFFFFF;*/
-/*}*/
-
-/*.EventList .EventList-Header {*/
-  /*padding: 20px;*/
-/*}*/
-
 .EventList .EventList-label {
   color: #575757;
   font-size: 12px;
 }
 
-/*.EventList .EventList-btn,*/
-/*.EventList .EventList-delete {*/
-  /*margin: 10px;*/
-  /*color: #ffffff;*/
-  /*padding: 10px 20px;*/
-/*}*/
+.EventList-Past {
+  opacity: 0.4;
+}
 
-/*.EventList .EventList-btn {*/
-  /*background-color: #2F3546;*/
-/*}*/
+.EventList-Past .EventList-Add {
+  display: none;
+}
 
-/*.EventList .EventList-delete {*/
-  /*background-color: #E24D55;*/
-/*}*/
-/*.EventList .EventList-delete:hover,*/
-/*.EventList .EventList-delete:focus {*/
-  /*background-color: #bf4951;*/
-  /*color: #ffffff;*/
-/*}*/
+.EventList-Past .btn-secondary {
+  display: none;
+}
 
-/*.EventList .EventList-Add {*/
-  /*position: absolute;*/
-  /*width: 200px;*/
-  /*left: 0;*/
-  /*right: 0;*/
-  /*margin: 0 auto;*/
-  /*bottom: -30px;*/
-  /*opacity: 0;*/
-  /*-webkit-transition: opacity 1s ease;*/
-  /*transition: opacity 1s ease;*/
-/*}*/
-
-/*.EventList .collapse.in .EventList-Add {*/
-  /*opacity: 1;*/
-/*}*/
-
-/*.EventList .EventList-btn:hover,*/
-/*.EventList .EventList-btn:focus {*/
-  /*color: #ffffff;*/
-  /*background-color: #1d2334;*/
-/*}*/
 

@@ -37,19 +37,19 @@ class GuestList extends React.Component {
           return (
             <div key={part.id} className="GuestList-List">
               <Row>
-                <Col md={3}>
+                <Col sm={3}>
                   <p className="GuestList-label">guest name</p>
                   <p>{part.name}</p>
                 </Col>
-                <Col md={3}>
+                <Col sm={3}>
                   <p className="GuestList-label">number of guests</p>
                   <p>{part.guests}</p>
                 </Col>
-                <Col md={3}>
+                <Col sm={3}>
                   <p className="GuestList-label">amount paid</p>
                   <p>${part.paid}</p>
                 </Col>
-                <Col md={3}>
+                <Col sm={3}>
                   <p className="GuestList-label text-right link" onClick={()=> this.openEditGuest(part.id)}><i className="fa fa-pencil"></i> edit guest</p>
                   <p className="GuestList-label text-right link" onClick={()=> this.openDeleteGuest(part.id)}><i className="fa fa-trash"></i> delete guest</p>
                 </Col>

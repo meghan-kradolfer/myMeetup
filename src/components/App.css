@@ -1,0 +1,32 @@
+.App-Today {
+  padding-left: 40px;
+}
+
+.App-TodayContain {
+  border-left: 1px solid #E6E7E8;
+  padding: 30px;
+  position: relative;
+}
+
+.App-Time{
+  color: #E6E7E8;
+  margin:0;
+}
+
+.App-Time:before {
+  content: "\f017";
+  font-family: FontAwesome;
+  position: absolute;
+  left: -15px;
+}
+
+.App-line {
+  width: 80px;
+  height: 5px;
+  background-color: #2F313C;
+  border: 0;
+  margin-right: 10px;
+  display: inline-block;
+}
+
+

@@ -1,5 +1,5 @@
-import React from 'react'
-import { Modal, Row, Col } from 'react-bootstrap'
+import React from 'react';
+import { Modal, Row, Col } from 'react-bootstrap';
 
 const DeleteConfirm = ({open, close, remove, component}) => (
   <Modal show={open === component.id} onHide={close} >
@@ -11,7 +11,7 @@ const DeleteConfirm = ({open, close, remove, component}) => (
       <Row>
         <Col md={6} className="form-group">
           <button type="submit" className="btn btn-block btn-default" onClick={() => close()} >
-           Cancel
+            Cancel
           </button>
         </Col>
         <Col md={6} className="form-group">

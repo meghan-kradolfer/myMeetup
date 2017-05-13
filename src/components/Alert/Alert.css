@@ -1,0 +1,29 @@
+.Alert {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s linear;
+  position: fixed;
+  top: 10px;
+  right: 20px;
+  padding: 20px;
+  border-radius: 2px;
+
+}
+
+.Alert.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+.Alert h4 {
+  color: #ffffff;
+  text-transform: capitalize;
+}
+
+.Alert p {
+  color: #ffffff;
+}
+
+.Alert-success {
+  background-color: RGBA(117, 178, 84, 0.8);
+}

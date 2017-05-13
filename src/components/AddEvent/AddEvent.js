@@ -68,7 +68,7 @@ class AddEvent extends React.Component {
             </div>
             <div className="form-group">
               <label htmlFor="name">Event Address</label>
-              <input type="text" id="name" onChange={ this.handleChange } className="form-control" value={this.state.address} />
+              <input type="text" id="address" onChange={ this.handleChange } className="form-control" value={this.state.address} />
             </div>
             <Row>
               <Col md={6} className="form-group">
@@ -82,7 +82,7 @@ class AddEvent extends React.Component {
             </Row>
             { this.state.error  && <p className="text-danger mb-2 text-center">Please fill in all fields</p> }
             <button type="submit" className="btn btn-block btn-secondary" >
-              Add guest
+              Add new event
             </button>
           </form>
         </Modal.Body>
