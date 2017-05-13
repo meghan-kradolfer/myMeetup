@@ -15,7 +15,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch, props) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     addEvent: (value) => {
       dispatch(addNewEvent(value));
@@ -83,8 +83,8 @@ class App extends Component {
     this.props.addEvent(value);
     this.showAlert('success', value, 'added');
   }
-  handleAddNewGuest(value, eventId) {
-    this.props.addGuest(value, eventId);
+  handleAddNewGuest(value) {
+    this.props.addGuest(value);
     this.showAlert('success', value, 'added');
   }
   handleEditEvent(value) {
@@ -119,60 +119,56 @@ class App extends Component {
 
     events.map(event => event.date < today ? event.past = true : event.past = false);
 
-    const todaysEvent = events.filter( a => a.date.slice(0,10) === today);
+    const todayEvent = events.filter( a => a.date.slice(0,10) === today);
 
     return (
-      <div className="App">
-        <Grid>
-          <Row>
-            <Col md={9}>
-              <h1 className="mt-1">myMeetup</h1>
-              <p>Your personal meetup planner</p>
-            </Col>
-            <Col md={3}>
-              <button className="btn btn-primary mt-1" onClick={() => this.openAddEvent()}>Add an event</button>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={12}>
-              <h5 className="mt-1"><Moment format="DD MMM, YYYY"></Moment></h5>
-              <p className="mb-1">You have <span>{todaysEvent.length} events</span> on today</p>
-              <div className="App-Today">
-                { todaysEvent.length > 0 &&
-                <div className="App-TodayContain">
-                  { todaysEvent.map(event => (
-                    <div className="App-Events mb-2">
-                      <h2 className="App-Time"><Moment format="hh:mm A">{event.date}</Moment></h2>
-                      <p>{event.name}</p>
-                    </div>
-                  ))}
-                </div>
-                }
+      <Grid className="App">
+        <Row>
+          <Col md={9}>
+            <h1 className="mt-1">myMeetup</h1>
+            <p>Your personal meetup planner</p>
+          </Col>
+          <Col md={3}>
+            <button className="btn btn-primary mt-1" onClick={() => this.openAddEvent()}>Add an event</button>
+          </Col>
+          <Col xs={12}>
+            <h5 className="mt-1"><Moment format="DD MMM, YYYY"></Moment></h5>
+            <p className="mb-1">You have <span>{todayEvent.length} events</span> on today</p>
+            <div className="App-Today">
+              { todayEvent.length > 0 &&
+              <div className="App-TodayContain">
+                { todayEvent.map(event => (
+                  <div className="App-Events mb-2">
+                    <h2 className="App-Time"><Moment format="hh:mm A">{event.date}</Moment></h2>
+                    <p>{event.name}</p>
+                  </div>
+                ))}
               </div>
-            </Col>
-          </Row>
-          <hr className="App-line"/> All Events
-          <Row>
-            <Col xs={12}>
-              <EventList
-                events={events}
-                participants={participants}
-                editEvent={this.openEditEvent}
-                handleAddNewGuest={this.handleAddNewGuest}
-                handleEditEvent={this.handleEditEvent}
-                handleEditGuest={this.handleEditGuest}
-                handleDeleteEvent={this.handleDeleteEvent}
-                handleDeleteGuest={this.handleDeleteGuest} />
-            </Col>
-          </Row>
-
-        </Grid>
+              }
+            </div>
+          </Col>
+          <Col xs={12}>
+            <hr className="App-line"/> All Events
+          </Col>
+          <Col xs={12}>
+            <EventList
+              events={events}
+              participants={participants}
+              editEvent={this.openEditEvent}
+              handleAddNewGuest={this.handleAddNewGuest}
+              handleEditEvent={this.handleEditEvent}
+              handleEditGuest={this.handleEditGuest}
+              handleDeleteEvent={this.handleDeleteEvent}
+              handleDeleteGuest={this.handleDeleteGuest} />
+          </Col>
+        </Row>
         <AddEvent open={this.state.addEvent}
                   close={this.closeAddEvent}
                   add={this.handleAddNewEvent}
                   events={events}/>
+
         <Alert alert={this.state.alert}  />
-      </div>
+      </Grid>
     );
   }
 }

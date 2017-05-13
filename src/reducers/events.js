@@ -8,7 +8,7 @@ const events = (state = [], action) => {
       ];
     case 'ADD_GUEST':
       return state.map(item => {
-        if(item.id === action.eventId){
+        if(item.id === action.values.eventId){
           action.values.id = item.participant.length+1;
           item.participant.push(action.values);
           return item;
@@ -31,7 +31,6 @@ const events = (state = [], action) => {
             }
             return part;
           });
-          console.log(item);
           return item;
         }
         return item;

@@ -1,7 +1,8 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
-import Guest from '../Guest/Guest';
+import EditGuest from '../EditGuest/EditGuest';
 import DeleteConfirm from '../DeleteConfirm/DeleteConfirm';
+
 import './GuestList.css';
 
 class GuestList extends React.Component {
@@ -41,28 +42,33 @@ class GuestList extends React.Component {
                   <p className="GuestList-label">guest name</p>
                   <p>{part.name}</p>
                 </Col>
+
                 <Col sm={3}>
                   <p className="GuestList-label">number of guests</p>
                   <p>{part.guests}</p>
                 </Col>
+
                 <Col sm={3}>
                   <p className="GuestList-label">amount paid</p>
                   <p>${part.paid}</p>
                 </Col>
+
                 <Col sm={3}>
                   <p className="GuestList-label text-right link" onClick={()=> this.openEditGuest(part.id)}><i className="fa fa-pencil"></i> edit guest</p>
                   <p className="GuestList-label text-right link" onClick={()=> this.openDeleteGuest(part.id)}><i className="fa fa-trash"></i> delete guest</p>
                 </Col>
               </Row>
-              <Guest open={ this.state.editGuest }
-                     close={ this.closeEditGuest }
-                     edit={ handleEditGuest }
-                     participant={ part }
-                     event={ event } />
-              <DeleteConfirm open={ this.state.deleteGuest }
-                             close={ this.closeDeleteGuest }
-                             remove={ handleDeleteGuest }
-                             component={ part } />
+
+              <EditGuest open={this.state.editGuest}
+                         close={this.closeEditGuest}
+                         edit={handleEditGuest}
+                         participant={part}
+                         event={event} />
+
+              <DeleteConfirm open={this.state.deleteGuest}
+                             close={this.closeDeleteGuest}
+                             remove={handleDeleteGuest}
+                             component={part} />
             </div>
           )
         })}

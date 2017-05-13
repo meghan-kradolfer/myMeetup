@@ -7,11 +7,10 @@ export const addNewEvent = (values) => {
   }
 };
 
-export const addNewGuest = (values, eventId) => {
+export const addNewGuest = (values) => {
   return {
     type: types.ADD_GUEST,
-    values,
-    eventId
+    values
   }
 };
 

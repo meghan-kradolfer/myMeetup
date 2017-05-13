@@ -1,9 +1,9 @@
 import React from 'react';
 import { Modal, Row, Col } from 'react-bootstrap';
-import Datetime  from 'react-datetime';
 import moment from 'moment';
+import DateSelect from '../DateSelect/DateSelect';
 
-class Event extends React.Component {
+class EditEvent extends React.Component {
   constructor(...args) {
     super(...args);
     this.state = {
@@ -35,44 +35,46 @@ class Event extends React.Component {
           <h3 className="text-center mb-1">Edit <span>{event.name}</span></h3>
           <hr />
         </Modal.Header>
+
         <Modal.Body>
           <form onSubmit={ e => { this.handleSubmit(e) }}>
-            <div className="form-group">
-              <label>Select date & time</label>
-              <Datetime
-                input={false}
-                value={moment(this.state.date)}
-                onChange={this.handleChange} />
-            </div>
-            <div className="form-group">
-              <label htmlFor="name">Event Name</label>
-              <input type="text" id="name" onChange={ this.handleChange } className="form-control" value={this.state.name} />
-            </div>
-            <div className="form-group">
-              <label htmlFor="name">Event Address</label>
-              <input type="text" id="address" onChange={ this.handleChange } className="form-control" value={this.state.address} />
-            </div>
             <Row>
+              <Col xs={12} className="form-group">
+                <label>Select date & time</label>
+                <DateSelect date={moment(this.state.date)} handleChange={this.handleChange} />
+              </Col>
+
+              <Col xs={12} className="form-group">
+                <label htmlFor="name">Event Name</label>
+                <input type="text" id="name" onChange={ this.handleChange } className="form-control" value={this.state.name} />
+              </Col>
+
+              <Col xs={12} className="form-group">
+                <label htmlFor="name">Event Address</label>
+                <input type="text" id="address" onChange={ this.handleChange } className="form-control" value={this.state.address} />
+              </Col>
+
               <Col md={6} className="form-group">
                 <label htmlFor="fee">Event Fee</label>
                 <input type="number" id="fee" onChange={ this.handleChange } className="form-control" value={this.state.fee} />
               </Col>
+
               <Col md={6} className="form-group">
                 <label htmlFor="max">Maximum Guests</label>
                 <input type="number" id="max_guests" onChange={ this.handleChange } className="form-control" value={this.state.max_guests} />
               </Col>
+
+              <Col xs={12} >
+                <button type="submit" className="btn btn-block btn-secondary" >
+                  Update Event
+                </button>
+              </Col>
             </Row>
-            <button type="submit" className="btn btn-block btn-secondary" >
-              Update Event
-            </button>
           </form>
 
         </Modal.Body>
-        <Modal.Footer>
-
-        </Modal.Footer>
       </Modal>
     );
   }
 }
-export default Event
+export default EditEvent

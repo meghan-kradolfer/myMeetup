@@ -8,6 +8,7 @@ class AddGuest extends React.Component {
       name: '',
       guests: '',
       paid: '',
+      eventId: this.props.event.id,
       error: false
     };
     this.handleChange = this.handleChange.bind(this);
@@ -27,14 +28,15 @@ class AddGuest extends React.Component {
     e.preventDefault();
 
     const { name, guests } = this.state;
-    const { event, add, close } = this.props;
+    const { add, close } = this.props;
 
     if (name && guests) {
-      add(this.state, event.id);
+      add(this.state);
       this.setState({
         name: '',
         guests: '',
         paid: '',
+        eventId: '',
         error: false
       });
       close();
@@ -46,12 +48,12 @@ class AddGuest extends React.Component {
     const { open, close, event } = this.props;
     return (
       <Modal show={open === event.id} onHide={close} >
-        <Modal.Body>
-          <Modal.Header closeButton>
-            <h3 className="text-center mb-1">Add a guest for <span>{event.name}</span></h3>
-            <hr />
-          </Modal.Header>
+        <Modal.Header closeButton>
+          <h3 className="text-center mb-1">Add a guest for <span>{event.name}</span></h3>
+          <hr />
+        </Modal.Header>
 
+        <Modal.Body>
           <form className="mt-1" onSubmit={ e => this.handleSubmit(e) }>
             <Row>
               <Col md={8} className="form-group">
@@ -62,9 +64,7 @@ class AddGuest extends React.Component {
                 <label htmlFor="name">Extra guests</label>
                 <input type="number" id="guests" onChange={ this.handleChange } className="form-control" value={this.state.guests} />
               </Col>
-            </Row>
-            { this.state.error  && <p className="text-danger mb-2 text-center">Please fill in all fields</p> }
-            <Row>
+              { this.state.error  && <p className="text-danger mb-2 text-center">Please fill in all fields</p> }
               <Col md={6} className="form-group">
                 <p><span>Total guest cost:</span> ${this.state.paid ? this.state.paid : event.fee}</p>
               </Col>

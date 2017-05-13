@@ -1,0 +1,65 @@
+.rdtPicker table {
+  width: 100%;
+  text-align: center;
+}
+
+.rdtPicker table th {
+  text-align: center;
+  font-weight: normal;
+  padding:10px;
+}
+
+.rdtPicker th.dow {
+  padding: 5px;
+  background-color: #666A75;
+  color: #ffffff;
+}
+
+.rdtPicker td.rdtDay,
+.rdtPicker td.rdtMonth,
+.rdtPicker td.rdtYear {
+  padding: 5px;
+  color: #666A75;
+  cursor: pointer;
+}
+
+.rdtPicker td.rdtDay.rdtActive,
+.rdtPicker td.rdtMonth.rdtActive,
+.rdtPicker td.rdtYear.rdtActive {
+  background-color: #D9D1C7;
+}
+
+.rdtPicker .rdtNext,
+.rdtPicker .rdtPrev {
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.rdtSwitch, .rdtBtn {
+  cursor: pointer;
+}
+
+.rdtTimeToggle {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #666A75;
+  color: #ffffff;
+}
+
+.rdtTime .rdtSwitch {
+  cursor: pointer;
+  background-color: #666A75;
+  color: #ffffff;
+}
+
+.rdtCounter,
+.rdtCounterSeparator {
+  display: inline-block;
+  padding: 10px;
+  vertical-align: middle;
+}
+
+.rdtToday {
+  border-bottom: 2px solid #2F3546;
+}

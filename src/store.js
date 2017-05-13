@@ -3,9 +3,7 @@ import thunkMiddleware from 'redux-thunk';
 
 import events from './reducers/events';
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-export function configureStore(initialState) {
+export function configureStore() {
 
   const loadState = () => {
     try {
@@ -28,18 +26,16 @@ export function configureStore(initialState) {
     }
   };
 
+  const persistedState = loadState();
+
   const reducer = combineReducers({
     events
   });
 
-  const persistedState = loadState();
-
-  console.log(persistedState);
-
   const store = createStore(
     reducer,
     persistedState,
-    composeEnhancers(
+    compose(
       applyMiddleware(thunkMiddleware)
     )
   );

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, Row, Col } from 'react-bootstrap';
 
-class Guest extends React.Component {
+class EditGuest extends React.Component {
   constructor(...args) {
     super(...args);
     this.state = {
@@ -34,6 +34,7 @@ class Guest extends React.Component {
         <Modal.Header closeButton>
           <h3 className="text-center mb-1">Edit <span>{participant.name}</span></h3>
         </Modal.Header>
+
         <Modal.Body>
           <form onSubmit={ e => this.handleSubmit(e)}>
             <Row>
@@ -41,15 +42,16 @@ class Guest extends React.Component {
                 <label htmlFor="name">Guest Name</label>
                 <input type="text" id="name" onChange={ this.handleChange } className="form-control" value={this.state.name} />
               </Col>
+
               <Col md={4} className="form-group">
                 <label htmlFor="name">Extra guests</label>
                 <input type="number" id="guests" onChange={ this.handleChange } className="form-control" value={this.state.guests} />
               </Col>
-            </Row>
-            <Row>
+
               <Col md={6} className="form-group">
                 <p><span>Total guest cost:</span> ${this.state.paid ? this.state.paid : event.fee}</p>
               </Col>
+
               <Col md={6} className="form-group">
                 <button type="submit" className="btn btn-block btn-secondary" >
                   Update guest
@@ -57,13 +59,9 @@ class Guest extends React.Component {
               </Col>
             </Row>
           </form>
-
         </Modal.Body>
-        <Modal.Footer>
-
-        </Modal.Footer>
       </Modal>
     );
   }
 }
-export default Guest
+export default EditGuest;
