@@ -3,13 +3,13 @@
 }
 
 .App-TodayContain {
-  border-left: 1px solid #E6E7E8;
+  border-left: 1px solid #CECECE;
   padding: 30px;
   position: relative;
 }
 
 .App-Time{
-  color: #E6E7E8;
+  color: #CECECE;
   margin:0;
 }
 

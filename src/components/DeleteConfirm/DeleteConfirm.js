@@ -10,13 +10,13 @@ const DeleteConfirm = ({open, close, remove, component}) => (
 
     <Modal.Body>
       <Row>
-        <Col md={6} className="form-group">
-          <button type="submit" className="btn btn-block btn-default" onClick={() => close()} >
+        <Col sm={6} >
+          <button className="btn btn-block btn-default" onClick={() => close()} >
             Cancel
           </button>
         </Col>
-        <Col md={6} className="form-group">
-          <button type="submit" className="btn btn-block btn-secondary" onClick={() => {remove(component); close()}}>
+        <Col sm={6}>
+          <button className="btn btn-block btn-secondary" onClick={() => {remove(component); close()}}>
             Confirm
           </button>
         </Col>

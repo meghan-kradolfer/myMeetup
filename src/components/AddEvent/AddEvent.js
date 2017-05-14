@@ -45,7 +45,7 @@ class AddEvent extends React.Component {
       });
       close();
     } else {
-      this.setState({error: true});
+      this.setState({error: 'Please fill in all fields'});
     }
   }
   render() {
@@ -75,18 +75,20 @@ class AddEvent extends React.Component {
                 <input type="text" id="address" onChange={ this.handleChange } className="form-control" value={this.state.address} />
               </Col>
 
-              <Col md={6} className="form-group">
+              <Col sm={6} className="form-group">
                 <label htmlFor="fee">Event Fee</label>
                 <input type="number" id="fee" onChange={ this.handleChange } className="form-control" value={this.state.fee} />
               </Col>
 
-              <Col md={6} className="form-group">
+              <Col sm={6} className="form-group">
                 <label htmlFor="max">Maximum Guests</label>
                 <input type="number" id="max_guests" onChange={ this.handleChange } className="form-control" value={this.state.max_guests} />
               </Col>
+            </Row>
 
-              <Col xs={12}>
-                { this.state.error  && <p className="text-danger mb-2 text-center">Please fill in all fields</p> }
+            <Row>
+              { this.state.error  && <p className="text-danger mb-2 text-center">{this.state.error}</p> }
+              <Col xs={12} className="form-group">
                 <button type="submit" className="btn btn-block btn-secondary" >
                   Add new event
                 </button>

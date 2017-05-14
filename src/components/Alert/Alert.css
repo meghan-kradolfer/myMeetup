@@ -17,6 +17,7 @@
 
 .Alert h4 {
   color: #ffffff;
+  margin:0;
   text-transform: capitalize;
 }
 

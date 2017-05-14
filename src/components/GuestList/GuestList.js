@@ -54,7 +54,7 @@ class GuestList extends React.Component {
                 </Col>
 
                 <Col sm={3}>
-                  <p className="GuestList-label text-right link" onClick={()=> this.openEditGuest(part.id)}><i className="fa fa-pencil"></i> edit guest</p>
+                  <p className="text-right link" onClick={()=> this.openEditGuest(part.id)}><i className="fa fa-pencil"></i> edit guest</p>
                   <p className="GuestList-label text-right link" onClick={()=> this.openDeleteGuest(part.id)}><i className="fa fa-trash"></i> delete guest</p>
                 </Col>
               </Row>
@@ -73,7 +73,7 @@ class GuestList extends React.Component {
           )
         })}
         { event.participant.length <= 0 &&
-        <em>No guest currently attending</em>
+        <em>No guests currently attending</em>
         }
       </div>
     );

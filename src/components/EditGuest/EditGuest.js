@@ -23,8 +23,21 @@ class EditGuest extends React.Component {
   }
   handleSubmit(e) {
     e.preventDefault();
-    this.props.edit(this.state);
-    this.props.close();
+    const { name, guests } = this.state;
+    const { edit, close, event } = this.props;
+    if (name && guests) {
+      if(guests > event.guestsRemaining) {
+        this.setState({
+          error: 'Guest list exceeded, please limit to a maximum '+(event.guestsRemaining)+' guests'
+        });
+      } else {
+        edit(this.state);
+        this.setState({error: false});
+        close();
+      }
+    } else {
+      this.setState({error: 'Please fill in all fields'});
+    }
   }
   render() {
     const { open, close, participant, event } = this.props;
@@ -38,21 +51,24 @@ class EditGuest extends React.Component {
         <Modal.Body>
           <form onSubmit={ e => this.handleSubmit(e)}>
             <Row>
-              <Col md={8} className="form-group">
+              <Col md={12} className="form-group">
+                <h5><span>Total guest cost:</span> ${this.state.paid ? this.state.paid : event.fee}</h5>
+              </Col>
+
+              <Col sm={8} className="form-group">
                 <label htmlFor="name">Guest Name</label>
                 <input type="text" id="name" onChange={ this.handleChange } className="form-control" value={this.state.name} />
               </Col>
 
-              <Col md={4} className="form-group">
+              <Col sm={4} className="form-group">
                 <label htmlFor="name">Extra guests</label>
                 <input type="number" id="guests" onChange={ this.handleChange } className="form-control" value={this.state.guests} />
               </Col>
+            </Row>
 
-              <Col md={6} className="form-group">
-                <p><span>Total guest cost:</span> ${this.state.paid ? this.state.paid : event.fee}</p>
-              </Col>
-
-              <Col md={6} className="form-group">
+            <Row>
+              { this.state.error  && <p className="text-danger mb-2 text-center">{this.state.error}</p> }
+              <Col md={12} className="form-group">
                 <button type="submit" className="btn btn-block btn-secondary" >
                   Update guest
                 </button>

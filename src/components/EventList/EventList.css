@@ -2,7 +2,7 @@
   padding-left: 40px;
 }
 .EventList-Contain {
-  border-left: 1px solid #E6E7E8;
+  border-left: 1px solid #CECECE;
   padding: 30px;
   position: relative;
 }
@@ -18,7 +18,7 @@
 }
 
 .EventList-Date {
-  color: #E6E7E8;
+  color: #CECECE;
   margin:0;
 }
 
@@ -27,7 +27,7 @@
 }
 
 .EventList-Details .fa {
-  color: #E6E7E8;
+  color: #CECECE;
   font-size: 20px;
   vertical-align: middle;
   margin-right: 10px;
@@ -39,12 +39,17 @@
   cursor: pointer;
 }
 
+.EventList-Guests .fa {
+  float: right;
+  font-weight: bold;
+  margin-top: 5px;
+}
 
 .EventList-Panel.panel {
   border: 0;
   box-shadow: 0;
   border-radius: 0;
-  border-bottom: 5px solid #E6E7E8;
+  border-bottom: 5px solid #CECECE;
 }
 
 .EventList-Add {

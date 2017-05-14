@@ -15,33 +15,34 @@ class AddGuest extends React.Component {
   }
   handleChange(e) {
     let newState = {};
-
     newState[e.target.id] = e.target.value;
 
     if(e.target.id === 'guests') {
       newState.paid = (Number(e.target.value)+1) * this.props.event.fee;
     }
-
     this.setState(newState)
   }
   handleSubmit(e) {
     e.preventDefault();
 
     const { name, guests } = this.state;
-    const { add, close } = this.props;
-
+    const { add, close, event } = this.props;
     if (name && guests) {
-      add(this.state);
-      this.setState({
-        name: '',
-        guests: '',
-        paid: '',
-        eventId: '',
-        error: false
-      });
-      close();
+      if(Number(guests)+1 > event.guestsRemaining) {
+        this.setState({
+          error: 'Guest list exceeded, please limit to a maximum '+(event.guestsRemaining-1)+' guests'});
+      } else {
+        add(this.state);
+        close();
+        this.setState({
+          name: '',
+          guests: '',
+          paid: '',
+          error: false
+        });
+      }
     } else {
-      this.setState({error: true});
+      this.setState({error: 'Please fill in all fields'});
     }
   }
   render() {
@@ -54,21 +55,25 @@ class AddGuest extends React.Component {
         </Modal.Header>
 
         <Modal.Body>
-          <form className="mt-1" onSubmit={ e => this.handleSubmit(e) }>
+          <form onSubmit={ e => this.handleSubmit(e) }>
             <Row>
-              <Col md={8} className="form-group">
+              <Col md={12} className="form-group">
+                <h5><span>Total guest cost:</span> ${this.state.paid ? this.state.paid : event.fee}</h5>
+              </Col>
+              <Col sm={8} className="form-group">
                 <label htmlFor="name">Guest Name</label>
                 <input type="text" id="name" onChange={ this.handleChange } className="form-control" value={this.state.name} />
               </Col>
-              <Col md={4} className="form-group">
+
+              <Col sm={4} className="form-group">
                 <label htmlFor="name">Extra guests</label>
                 <input type="number" id="guests" onChange={ this.handleChange } className="form-control" value={this.state.guests} />
               </Col>
-              { this.state.error  && <p className="text-danger mb-2 text-center">Please fill in all fields</p> }
-              <Col md={6} className="form-group">
-                <p><span>Total guest cost:</span> ${this.state.paid ? this.state.paid : event.fee}</p>
-              </Col>
-              <Col md={6} className="form-group">
+            </Row>
+
+            <Row>
+              { this.state.error  && <p className="text-danger mb-2 text-center">{this.state.error}</p> }
+              <Col md={12} className="form-group">
                 <button type="submit" className="btn btn-block btn-secondary" >
                   Add guest
                 </button>

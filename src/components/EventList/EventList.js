@@ -59,6 +59,7 @@ class EventList extends React.Component {
         <div className="EventList-Contain">
           { sort(events).map( event => {
             event.guestCount = event.participant ? event.participant.length + event.participant.reduce(function(total,x){return total + Number(x.guests)}, 0) : 0;
+            event.guestsRemaining = event.max_guests - event.guestCount;
             event.finances = event.participant ? event.participant.reduce(function(total,x){return total + Number(x.paid)}, 0) : 0;
 
             return (
@@ -71,7 +72,8 @@ class EventList extends React.Component {
                     <p className="EventList-Details"><i className="fa fa-map-marker"></i> {event.address}</p>
                     <p className="EventList-Details"><i className="fa fa-usd"></i> {event.finances} | <span><small>total income</small></span></p>
                     <p className="EventList-Guests" onClick={()=> this.setState({ open: this.state.open === event.id ? false : event.id })}>
-                      {event.guestCount} participants attending | <span><small>{event.max_guests - event.guestCount} spots remaining</small></span>
+                      {event.guestCount} participants attending | <span><small>{event.guestsRemaining} spot{event.guestCount > 1 ? 's' : ''} remaining</small></span>
+                      <i className={`fa ${this.state.open === event.id ? 'fa-angle-up' : 'fa-angle-down'}`}></i>
                     </p>
 
                     <Panel className="EventList-Panel" collapsible expanded={this.state.open === event.id}>
@@ -90,13 +92,15 @@ class EventList extends React.Component {
                       </Row>
                     </Panel>
                   </Col>
+                </Row>
 
+                <Row>
                   <Col sm={3} smOffset={6}>
-                    <span className="btn btn-block btn-secondary mb-2" onClick={()=> this.openEditEvent(event.id)}><i className="fa fa-pencil"></i> Edit event</span>
+                    <button className="btn btn-secondary btn-block mb-2" onClick={()=> this.openEditEvent(event.id)}><i className="fa fa-pencil"></i> Edit event</button>
                   </Col>
 
                   <Col sm={3}>
-                    <span className="btn btn-block btn-default mb-2" onClick={()=> this.openDeleteEvent(event.id)}><i className="fa fa-trash"></i> Delete event</span>
+                    <button className="btn btn-default btn-block mb-2" onClick={()=> this.openDeleteEvent(event.id)}><i className="fa fa-trash"></i> Delete event</button>
 
                     <DeleteConfirm open={ this.state.deleteEvent }
                                    close={ this.closeDeleteEvent }

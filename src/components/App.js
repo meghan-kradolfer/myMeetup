@@ -39,8 +39,8 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 class App extends Component {
-  constructor(props) {
-    super(props);
+  constructor(...args) {
+    super(...args);
     this.state = {
       addEvent: false,
       editEvent: false,
@@ -133,12 +133,12 @@ class App extends Component {
           </Col>
           <Col xs={12}>
             <h5 className="mt-1"><Moment format="DD MMM, YYYY"></Moment></h5>
-            <p className="mb-1">You have <span>{todayEvent.length} events</span> on today</p>
+            <p className="mb-1">You have <span>{todayEvent.length} event{todayEvent.length > 1 ? 's' : ''}</span> on today</p>
             <div className="App-Today">
               { todayEvent.length > 0 &&
               <div className="App-TodayContain">
                 { todayEvent.map(event => (
-                  <div className="App-Events mb-2">
+                  <div className="App-Events mb-2" key={event.id} >
                     <h2 className="App-Time"><Moment format="hh:mm A">{event.date}</Moment></h2>
                     <p>{event.name}</p>
                   </div>

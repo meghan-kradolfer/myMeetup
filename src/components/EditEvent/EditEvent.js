@@ -24,8 +24,16 @@ class EditEvent extends React.Component {
   }
   handleSubmit(e) {
     e.preventDefault();
-    this.props.edit(this.state);
-    this.props.close();
+    const { name, date, fee, max_guests } = this.state;
+    const { edit, close } = this.props;
+
+    if (name && date && fee && max_guests) {
+      edit(this.state);
+      this.setState({error: false});
+      close();
+    } else {
+      this.setState({error: 'Please fill in all fields'});
+    }
   }
   render() {
     const { open, close,  event } = this.props;
@@ -54,19 +62,22 @@ class EditEvent extends React.Component {
                 <input type="text" id="address" onChange={ this.handleChange } className="form-control" value={this.state.address} />
               </Col>
 
-              <Col md={6} className="form-group">
+              <Col sm={6} className="form-group">
                 <label htmlFor="fee">Event Fee</label>
                 <input type="number" id="fee" onChange={ this.handleChange } className="form-control" value={this.state.fee} />
               </Col>
 
-              <Col md={6} className="form-group">
+              <Col sm={6} className="form-group">
                 <label htmlFor="max">Maximum Guests</label>
                 <input type="number" id="max_guests" onChange={ this.handleChange } className="form-control" value={this.state.max_guests} />
               </Col>
+            </Row>
 
-              <Col xs={12} >
+            <Row>
+              { this.state.error  && <p className="text-danger mb-2 text-center">{this.state.error}</p> }
+              <Col xs={12} className="form-group">
                 <button type="submit" className="btn btn-block btn-secondary" >
-                  Update Event
+                  Update event
                 </button>
               </Col>
             </Row>
