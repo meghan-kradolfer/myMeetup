@@ -1,5 +1,8 @@
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
+## Setup 
+Run `npm install` in root directory.
+
 ## Available Scripts
 
 In the project directory, you can run:

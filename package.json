@@ -1,7 +1,8 @@
 {
   "name": "myMeetup",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "author": "Meghan Kradolfer <meghan.kradolfer@gmail.com> (http://meghankradolfer.com/)",
   "dependencies": {
     "bootstrap": "^3.3.7",
     "moment": "^2.18.1",
